@@ -46,13 +46,16 @@ export default class GotService{
         }
 
         _transformCharacter(char){
-           
+
+        function emptyPlace(item){
+            return item === ''? 'no information': item
+            }
             return{
-                name: char.name,
-                gender: char.gender,
-                born: char.born,
-                died: char.died,
-                culture: char.culture
+                name: emptyPlace(char.name),
+                gender: emptyPlace(char.gender),
+                born: emptyPlace(char.born),
+                died: emptyPlace(char.died),
+                culture:emptyPlace(char.culture) 
             }
         }
 
@@ -76,5 +79,6 @@ export default class GotService{
             }
         }
 
+        
 
 }
