@@ -12,7 +12,7 @@ export default class GotService{
   };
 
   async getAllCharacters(){
-      const res = await this.getResource('/characters?page=5&pageSize=10');
+      const res = await this.getResource('/characters?page=8&pageSize=10');
       return res.map(this._transformCharacter)
       
   }
@@ -45,11 +45,19 @@ export default class GotService{
         }
 
         _transformCharacter(char){
+        
+        function getIdFromUrl(item){
+            const arr = item.split('/');
+            const id = arr[arr.length - 1];
+            return id;
+        
+        }   
 
         function emptyPlace(item){
             return item === ''? 'no information': item
             }
             return{
+                url: getIdFromUrl(char.url),
                 name: emptyPlace(char.name),
                 gender: emptyPlace(char.gender),
                 born: emptyPlace(char.born),

@@ -7,7 +7,17 @@
 body {
     overflow-x: hidden;
     background: url('img/got.jpeg') center center no-repeat;
+    background-position: center ;
+    background-attachment: fixed;
     background-size: cover;
     font-size: 16px;
     height: 100%;	
+}
+html{
+    background: url('img/got.jpeg') center center no-repeat;
+    background-position: center ;
+    background-attachment: fixed;
+    background-size: cover;
+    overflow:  hidden;
+    height: 100%;
 }
