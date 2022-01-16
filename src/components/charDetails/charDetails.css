@@ -10,7 +10,13 @@
 }
 
 .select-error {
-    color: #fff;
+    display: inline-block;
+    width: 400px;
+    height: 50px;
+    color: rgb(90, 90, 90);
     text-align: center;
+    font-weight: 300;
     font-size: 26px;
+    border-radius: 5px;
+    background-color: #fff;
 }

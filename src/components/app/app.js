@@ -1,34 +1,73 @@
-import React from 'react';
-import {Col, Row, Container} from 'reactstrap';
+import React,{Component} from 'react';
+import {Col, Row, Container, Button} from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
-import ItemList from '../itemList';
-import CharDetails from '../charDetails';
+import ErrorMessage from '../errorMessage';
+import CharacterPage from '../characterPage/characterPage';
 
 
-const App = () => {
+export default class App extends Component{
+        state={
+           toggle: true ,
+           error: false
+        }
+
+        componentDidCatch(){
+            console.log('error');
+            this.setState({
+                error: true
+            })
+        }
+
+        deleteChar =(toggle) =>{
+            return this.setState({
+                toggle: !toggle
+            })
+        }
+    
+
+        
+
+    
+    render(){
+        const {toggle} = this.state;
+        const toggleCharacter = toggle?  <ToggleChar/> : null;
+
+        if(this.state.error){
+            return <ErrorMessage/>
+        }
+        return (
+            <> 
+                <Container>
+                    <Header />
+                </Container>
+                <Container>
+                    {toggleCharacter}
+                    <div>
+                        <Button
+                            color="primary"
+                            onClick={()=> this.deleteChar(toggle)}
+                        >
+                            Toggle randome character
+                        </Button>
+                    </div>
+                   <CharacterPage/>
+                </Container>
+            </>
+        );
+    }
+    
+}
+
+const ToggleChar= () =>{
     return (
-        <> 
-            <Container>
-                <Header />
-            </Container>
-            <Container>
-                <Row>
-                    <Col lg={{size: 5, offset: 0}}>
-                        <RandomChar/>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md='6'>
-                        <ItemList />
-                    </Col>
-                    <Col md='6'>
-                        <CharDetails />
-                    </Col>
-                </Row>
-            </Container>
+        <>
+        <Row>
+                <Col lg={{size: 5, offset: 0}}>
+                    <RandomChar/>
+                </Col>
+            </Row>
         </>
-    );
-};
+    )
+}
 
-export default App;

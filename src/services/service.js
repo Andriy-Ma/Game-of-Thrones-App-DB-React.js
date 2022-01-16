@@ -4,11 +4,10 @@ export default class GotService{
     }
     async getResource(url) {
       const res = await fetch(`${this._apiBase}${url}`);
-  
+      
       if(!res.ok){
           throw new Error(`Could not fetch ${url} , ${res.status}`);
       }
-  
       return await res.json();
   };
 
@@ -60,22 +59,28 @@ export default class GotService{
         }
 
         _transformHouse(house){
-            return {
-                name: house.name,
-                region: house.region,
-                words:house.words,
-                titles: house.titles,
-                overlord: house.overlord,
-                ancestralWeapons: house.ancestralWeapons
+            function emptyPlace(item){
+                return item === ''? 'no information': item
+                }
+                return{
+                name: emptyPlace( house.name),
+                region: emptyPlace( house.region),
+                words: emptyPlace( house.words),
+                titles: emptyPlace( house.titles),
+                overlord: emptyPlace( house.overlord),
+                ancestralWeapons: emptyPlace( house.ancestralWeapons)
             }
         }
 
         _transformBook(book){
-            return {
-                name: book.name,
-                numberOfPages: book.numberOfPages,
-                publiser:book.publiser,
-                released: book.released,
+            function emptyPlace(item){
+                return item === ''? 'no information': item
+                }
+                return{
+                name:emptyPlace( book.name),
+                numberOfPages:emptyPlace( book.numberOfPages),
+                publiser:emptyPlace( book.publiser),
+                released:emptyPlace( book.released)
             }
         }
 

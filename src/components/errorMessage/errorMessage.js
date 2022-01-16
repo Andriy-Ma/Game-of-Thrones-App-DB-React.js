@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './errorMessage.css';
-import img from './got.jpeg';
+import img from './error-5100.jpg';
 
 const ErrorMessage =()=>{
 
