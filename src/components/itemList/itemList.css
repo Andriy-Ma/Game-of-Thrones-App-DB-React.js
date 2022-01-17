@@ -1,6 +1,11 @@
 .item-list .list-group-item {
     cursor: pointer;
 }
+.list-group-item:hover{
+    color:black;
+    background-color: cornflowerblue;
+    transition: all 0.1s linear;
+}
 .row{
     margin: 40px 0 40px 0;
 }

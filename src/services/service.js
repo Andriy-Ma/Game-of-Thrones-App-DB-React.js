@@ -2,7 +2,7 @@ export default class GotService{
     constructor(){
       this._apiBase = 'https://www.anapioficeandfire.com/api';
     }
-    async getResource(url) {
+     getResource = async (url) => {
       const res = await fetch(`${this._apiBase}${url}`);
       
       if(!res.ok){
@@ -11,40 +11,41 @@ export default class GotService{
       return await res.json();
   };
 
-  async getAllCharacters(){
+    getAllCharacters = async () =>{
       const res = await this.getResource('/characters?page=8&pageSize=10');
       return res.map(this._transformCharacter)
       
   }
 
-  async getCharacter(id){
+    getCharacter = async(id)=> {
       const character= await this.getResource(`/characters/${id}`);
-      return this._transformCharacter(character);
+      return this.onShortName(character);
+      
   }
 
-    async getAllBooks(){
+     getAllBooks = async()=>{
         const res = await this.getResource('/books/');
         return res.map(this._transformBook);
 
         }
 
-    async getBook(id){
+    getBook = async (id)=> {
         const book = await this.getResource(`/books/${id}`);
         return this._transformBook(book);
         }
 
-    async getAllHouses(){
+    getAllHouses = async ()=>{
         const res = await this.getResource('/houses/');
         return res.map(this._transformHouse);
 
         }
 
-    async getHouse(id){
+    getHouse= async (id)=>{
         const house = await this.getResource(`/houses/${id}`);
         return this._transformHouse(house);
         }
 
-        _transformCharacter(char){
+        _transformCharacter =(char)=>{
         
         function getIdFromUrl(item){
             const arr = item.split('/');
@@ -54,6 +55,7 @@ export default class GotService{
         }   
 
         function emptyPlace(item){
+            
             return item === ''? 'no information': item
             }
             return{
@@ -66,7 +68,30 @@ export default class GotService{
             }
         }
 
-        _transformHouse(house){
+        onShortName=(char)=>{
+            function shorting(elem){
+                if(elem.length>20){
+                   return elem = elem.substring(0, 30)+'...';
+                } else {
+                    return elem;
+                } 
+            }
+            function emptyPlace(item){
+                return item === ''? 'no information': item
+                }
+            
+            return{
+                url: emptyPlace(shorting(char.url)),
+                name: char.name,
+                gender: emptyPlace(shorting(char.gender)),
+                born: emptyPlace(shorting(char.born)),
+                died: emptyPlace(shorting(char.died)),
+                culture:emptyPlace(shorting(char.culture)) 
+            }
+        }
+
+
+        _transformHouse =(house)=>{
             function emptyPlace(item){
                 return item === ''? 'no information': item
                 }
@@ -80,7 +105,7 @@ export default class GotService{
             }
         }
 
-        _transformBook(book){
+        _transformBook =(book)=>{
             function emptyPlace(item){
                 return item === ''? 'no information': item
                 }
