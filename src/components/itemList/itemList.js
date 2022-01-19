@@ -30,7 +30,7 @@ export default class ItemList extends Component {
                 <li 
                 key={id}
                 className="list-group-item "
-                onClick={()=>this.props.onCharSelected(item.url)}
+                onClick={()=>this.props.onItemSelected(item.url)}
                 >
                 {label}
                 </li>

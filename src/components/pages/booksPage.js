@@ -8,17 +8,17 @@ import gotService from '../../services/service';
 
 
 
-export default class CharacterPage extends Component{
+export default class BooksPage extends Component{
 
     gotService = new gotService();
 
     state ={
-        selectedChar: 130,
+        selectedBook: 3,
         error: false
     }
     onItemSelected = (id) =>{
         this.setState({
-            selectedChar: id
+            selectedBook: id
             
         })
         
@@ -36,19 +36,18 @@ export default class CharacterPage extends Component{
         }
 
         const itemList = ( <ItemList
-            getData={this.gotService.getAllCharacters}
+            getData={this.gotService.getAllBooks}
             onItemSelected={this.onItemSelected}
-            renderItem={(item)=> `${item.name} (${item.gender})`}
+            renderItem={(item)=> item.name }
             />)
 
         const itemDetails =(
-            <ItemDetails 
-            getItem={this.gotService.getCharacter}
-            itemId={this.state.selectedChar}>
-                <Field field='gender' label='Gender' />
-                <Field field='born' label='Born' />
-                <Field field='died' label='Died' />
-                <Field field='culture' label='Culture' />
+            <ItemDetails
+            getItem={this.gotService.getBook} 
+            itemId={this.state.selectedBook}>
+                <Field field='numberOfPages' label='NumberOfPages' />
+                <Field field='publisher' label='Publisher' />
+                <Field field='released' label='Released' />
             </ItemDetails>
 
 

@@ -42,6 +42,7 @@ export default class GotService{
 
     getHouse= async (id)=>{
         const house = await this.getResource(`/houses/${id}`);
+        console.log(house)
         return this._transformHouse(house);
         }
 
@@ -92,27 +93,48 @@ export default class GotService{
 
 
         _transformHouse =(house)=>{
+            function getIdFromUrl(item){
+                const arr = item.split('/');
+                const id = arr[arr.length - 1];
+                return id;
+            
+            } 
             function emptyPlace(item){
-                return item === ''? 'no information': item
+                return item === ''|| item.length === 1 ? 'no information': item
+                }
+            function shorting(elem){
+                    if(Array.isArray(elem) && elem.length>2){
+
+                       return elem[0];
+                    } else {
+                        return elem;
+                    } 
                 }
                 return{
+                url: getIdFromUrl(house.url),
                 name: emptyPlace( house.name),
                 region: emptyPlace( house.region),
                 words: emptyPlace( house.words),
-                titles: emptyPlace( house.titles),
-                overlord: emptyPlace( house.overlord),
+                titles: shorting(emptyPlace( house.titles)),
                 ancestralWeapons: emptyPlace( house.ancestralWeapons)
             }
         }
 
         _transformBook =(book)=>{
+            function getIdFromUrl(item){
+                const arr = item.split('/');
+                const id = arr[arr.length - 1];
+                return id;
+            
+            } 
             function emptyPlace(item){
                 return item === ''? 'no information': item
                 }
                 return{
+                url: getIdFromUrl(book.url),
                 name:emptyPlace( book.name),
                 numberOfPages:emptyPlace( book.numberOfPages),
-                publiser:emptyPlace( book.publiser),
+                publisher:emptyPlace( book.publisher),
                 released:emptyPlace( book.released)
             }
         }
