@@ -42,7 +42,6 @@ export default class GotService{
 
     getHouse= async (id)=>{
         const house = await this.getResource(`/houses/${id}`);
-        console.log(house)
         return this._transformHouse(house);
         }
 

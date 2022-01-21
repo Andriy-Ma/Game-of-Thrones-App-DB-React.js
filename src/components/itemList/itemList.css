@@ -9,3 +9,7 @@
 .row{
     margin: 40px 0 40px 0;
 }
+
+.list-group-item:nth-child(10){
+    margin-bottom:50px ;
+}

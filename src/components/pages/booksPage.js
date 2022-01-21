@@ -1,28 +1,37 @@
 import React,{Component} from 'react';
-import RowBlock from '../rowBlock';
 import ItemList from '../itemList';
-import ItemDetails,{Field} from '../itemDetails';
 import ErrorMessage from '../errorMessage';
 import gotService from '../../services/service';
+import {
+    useLocation,
+    useNavigate,
+    useParams
+  } from "react-router-dom";
 
+  function withRouter(Component) {
+    function ComponentWithRouterProp(props) {
+      let location = useLocation();
+      let navigate = useNavigate();
+      let params = useParams();
+      return (
+        <Component
+          {...props}
+          element={{ location, navigate, params }}
+        />
+      );
+    }
+  
+    return ComponentWithRouterProp;
+  }
 
-
-
-export default class BooksPage extends Component{
+ class BooksPage extends Component{
 
     gotService = new gotService();
 
     state ={
-        selectedBook: 3,
         error: false
     }
-    onItemSelected = (id) =>{
-        this.setState({
-            selectedBook: id
-            
-        })
-        
-    }
+    
 
     componentDidCatch(){
         this.setState({
@@ -31,29 +40,33 @@ export default class BooksPage extends Component{
     }
 
     render(){
+        
         if(this.state.error){
             return <ErrorMessage/>
         }
 
-        const itemList = ( <ItemList
-            getData={this.gotService.getAllBooks}
-            onItemSelected={this.onItemSelected}
-            renderItem={(item)=> item.name }
-            />)
-
-        const itemDetails =(
-            <ItemDetails
-            getItem={this.gotService.getBook} 
-            itemId={this.state.selectedBook}>
-                <Field field='numberOfPages' label='NumberOfPages' />
-                <Field field='publisher' label='Publisher' />
-                <Field field='released' label='Released' />
-            </ItemDetails>
-
-
-        )
         return(
-            <RowBlock left={itemList} right={itemDetails}/>
+            <ItemRend/>
         )
     }
 }
+
+
+function ItemRend() {
+    const gotServ = new gotService();
+    let navigate = useNavigate();
+    return(
+        <ItemList
+            getData={gotServ.getAllBooks}
+            onItemSelected={(itemId) => {
+                navigate(itemId);
+            }}
+            renderItem={(item)=> item.name }
+            />
+    )
+
+    
+}
+
+
+export default withRouter(BooksPage);

@@ -7,7 +7,8 @@ import CharacterPage from '../characterPage/characterPage';
 import BooksPage from '../pages';
 import { HousesPage } from '../pages';
 import gotService from '../../services/service';
-
+import { BooksItem } from '../pages';
+import {BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 export default class App extends Component{
 
@@ -42,27 +43,32 @@ export default class App extends Component{
             return <ErrorMessage/>
         }
         return (
-            <> 
+            <Router>
+                <div className='app'>
                 <Container>
-                    <Header />
+                    <Header/>
                 </Container>
                 <Container>
                     {toggleCharacter}
                     <div>
                         <Button
+                            className="mb-4"
                             color="primary"
                             onClick={()=> this.deleteChar(toggle)}
                         >
                             Toggle randome character
                         </Button>
                     </div>
-                   <CharacterPage/>
-                   <BooksPage/>
-                   <HousesPage/>
-                        
-
+                    <Routes>
+                        <Route  path="/" exact element={<h1>Hello</h1>}/>  
+                        <Route  path="/characters" element={<CharacterPage/>}/>
+                        <Route  path="/houses" element={<HousesPage/>}/>
+                        <Route  path="/books" exact element={<BooksPage/>}/>
+                        <Route  path="/books/:id" element={ <BooksItem />}/>
+                    </Routes>               
                 </Container>
-            </>
+                </div>
+            </Router>
         );
     }
     
