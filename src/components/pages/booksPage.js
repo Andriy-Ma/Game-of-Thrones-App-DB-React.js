@@ -57,6 +57,7 @@ function ItemRend() {
     let navigate = useNavigate();
     return(
         <ItemList
+            key={(Math.random*100)/100}
             getData={gotServ.getAllBooks}
             onItemSelected={(itemId) => {
                 navigate(itemId);

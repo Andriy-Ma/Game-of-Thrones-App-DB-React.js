@@ -79,7 +79,7 @@ const ToggleChar= () =>{
         <>
         <Row>
                 <Col lg={{size: 5, offset: 0}}>
-                    <RandomChar/>
+                    <RandomChar interval = {10000}/>
                 </Col>
             </Row>
         </>
